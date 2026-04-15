@@ -1,0 +1,26 @@
+{
+  "name": "stall-backend",
+  "version": "1.0.0",
+  "description": "ecommerce webpage for Pranathi 2k26 Golisoda & twisters stall",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "KYadavPR"
+  },
+  "author": "Karthik Yadav P R",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1",
+    "nodemon": "^3.1.14"
+  }
+}
