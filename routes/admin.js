@@ -4,21 +4,29 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
-    const hashed = await bcrypt.hash(req.body.password, 10);
-    const admin = new Admin({ username: req.body.username, password: hashed });
-    await admin.save();
-    res.json("Admin created");
+    try {
+        const hashed = await bcrypt.hash(req.body.password, 10);
+        const admin = new Admin({ username: req.body.username, password: hashed });
+        await admin.save();
+        res.json("Admin created");
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 router.post("/login", async (req, res) => {
-    const admin = await Admin.findOne({ username: req.body.username });
-    if (!admin) return res.status(400).send("Not found");
+    try {
+        const admin = await Admin.findOne({ username: req.body.username });
+        if (!admin) return res.status(400).send("Not found");
 
-    const valid = await bcrypt.compare(req.body.password, admin.password);
-    if (!valid) return res.status(400).send("Wrong password");
+        const valid = await bcrypt.compare(req.body.password, admin.password);
+        if (!valid) return res.status(400).send("Wrong password");
 
-    const token = jwt.sign({ id: admin._id }, "secret");
-    res.json({ token });
+        const token = jwt.sign({ id: admin._id }, "secret");
+        res.json({ token });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 module.exports = router;
